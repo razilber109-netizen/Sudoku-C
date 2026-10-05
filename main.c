@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include "sudoku.h"
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
 	Cell board[SIZE][SIZE];
+
+	srand(time(NULL));
+
 	initBoard(board);
 
 	// Main game loop - runs until the board is completely filled

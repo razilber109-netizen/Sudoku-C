@@ -5,21 +5,34 @@
 void initBoard(Cell board[SIZE][SIZE])
 { 
 	int i, j;
-	for (i = 0; i < SIZE; i++)
+	int baseGrid[SIZE][SIZE] = {
+	{5, 3, 4, 6, 7, 8, 9, 1, 2},
+	{6, 7, 2, 1, 9, 5, 3, 4, 8},
+	{1, 9, 8, 3, 4, 2, 5, 6, 7},
+	{8, 5, 9, 7, 6, 1, 4, 2, 3},
+	{4, 2, 6, 8, 5, 3, 7, 9, 1},
+	{7, 1, 3, 9, 2, 4, 8, 5, 6},
+	{9, 6, 1, 5, 3, 7, 2, 8, 4},
+	{2, 8, 7, 4, 1, 9, 6, 3, 5},
+	{3, 4, 5, 2, 8, 6, 1, 7, 9}
+	};
+
+	for (int i = 0; i < SIZE; i++)
 	{
-		for (j = 0; j < SIZE; j++)
+		for (int j = 0; j < SIZE; j++)
 		{
-			board[i][j].num = 0;
-			board[i][j].is_locked = 0;
+			if (rand() % 2 == 1)
+			{
+				board[i][j].num = baseGrid[i][j]; 
+				board[i][j].is_locked = 1;         
+			}
+			else
+			{
+				board[i][j].num = 0;              
+				board[i][j].is_locked = 0;        
+			}
 		}
 	}
-
-	board[1][3].num = 5;
-	board[1][3].is_locked = 1;
-	board[5][8].num = 3;
-	board[5][8].is_locked = 1;
-	board[8][1].num = 6;
-	board[8][1].is_locked = 1;
 }
 
 void printBoard(Cell board[SIZE][SIZE])
