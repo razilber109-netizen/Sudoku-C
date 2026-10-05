@@ -1,10 +1,20 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include "sudoku.h"
+#include <stdlib.h>
 
-void initBoard(Cell board[SIZE][SIZE])
+void swapRows(int grid[SIZE][SIZE], int row1, int row2)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		int temp = grid[row1][i];
+		grid[row1][i] = grid[row2][i];
+		grid[row2][i] = temp;
+	}
+}
+
+void initBoard(Cell board[SIZE][SIZE], int cellsToHide)
 { 
-	int i, j;
 	int baseGrid[SIZE][SIZE] = {
 	{5, 3, 4, 6, 7, 8, 9, 1, 2},
 	{6, 7, 2, 1, 9, 5, 3, 4, 8},
@@ -17,20 +27,38 @@ void initBoard(Cell board[SIZE][SIZE])
 	{3, 4, 5, 2, 8, 6, 1, 7, 9}
 	};
 
+	for (int band = 0; band < 3; band++)
+	{
+		int startRow = band * 3; 
+
+		for (int i = 0; i < 3; i++)
+		{
+			int r1 = startRow + (rand() % 3);
+			int r2 = startRow + (rand() % 3);
+			swapRows(baseGrid, r1, r2);
+		}
+	}
+
 	for (int i = 0; i < SIZE; i++)
 	{
 		for (int j = 0; j < SIZE; j++)
 		{
-			if (rand() % 2 == 1)
-			{
-				board[i][j].num = baseGrid[i][j]; 
-				board[i][j].is_locked = 1;         
-			}
-			else
-			{
-				board[i][j].num = 0;              
-				board[i][j].is_locked = 0;        
-			}
+			board[i][j].num = baseGrid[i][j];
+			board[i][j].is_locked = 1;
+		}
+	}
+
+	int hiddenCount = 0;
+	while (hiddenCount < cellsToHide)
+	{
+		int r = rand() % SIZE;
+		int c = rand() % SIZE;
+
+		if (board[r][c].is_locked == 1)
+		{
+			board[r][c].num = 0;
+			board[r][c].is_locked = 0;
+			hiddenCount++;
 		}
 	}
 }

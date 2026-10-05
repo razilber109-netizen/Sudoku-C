@@ -8,8 +8,11 @@
 	    unsigned char num;
 	    unsigned char is_locked;
     }Cell;
+    
 
-    void initBoard(Cell board[SIZE][SIZE]);
+    void swapRows(int grid[SIZE][SIZE], int row1, int row2);
+
+    void initBoard(Cell board[SIZE][SIZE], int cellsToHide);
 
     void printBoard(Cell board[SIZE][SIZE]);
 
