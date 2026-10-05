@@ -6,6 +6,7 @@ int main()
 	Cell board[SIZE][SIZE];
 	initBoard(board);
 
+	// Main game loop - runs until the board is completely filled
 	while (!isBoardFull(board))
 	{
 		int row, col, val;
@@ -13,12 +14,13 @@ int main()
 
 		printBoard(board);
 
+		// 1. Get and validate raw input format
 		printf("please enter row, colmn, number in that way: \n");
-
 		resInput = userInput(&row, &col, &val);
 
 		if (resInput)
 		{
+			// 2. Check game rules and cell availability
 			if (!board[row][col].is_locked)
 			{
 				if (isValidMove(board, row, col, val))

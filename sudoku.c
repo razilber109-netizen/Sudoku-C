@@ -143,6 +143,7 @@ int userInput(int* row, int* col, int* val)
 	
 	if (inputOk != 3)
 	{
+		// Clear the input buffer to prevent infinite loops when a user enters characters instead of numbers
 		while (getchar() != '\n');
 		return 0;
 	}
